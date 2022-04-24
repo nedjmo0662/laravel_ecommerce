@@ -86,7 +86,7 @@
           </li>
           
           <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ url('admin') }}">
+            <a class="nav-link" href="{{ url('padmin') }}">
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>

@@ -17,7 +17,6 @@ use App\Http\Controllers\AdminController;
 */
 
 
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
@@ -27,9 +26,11 @@ Route::get("/padmin",[AdminController::class,"admin"]);
 Route::get("/padmin/products",[AdminController::class,"products"]);
 Route::post("/products/upload",[AdminController::class,"uploadProduct"])->middleware('auth')->name('products.upload');
 Route::delete("/products/{id}",[AdminController::class,"destroy"]);
-Route::get("/products/{id}/edit",[AdminController::class,"edit"]);
+Route::get("/products/{id}",[AdminController::class,"edit"]);
 Route::post("/products/{id}",[AdminController::class,"update"]);
 
 Route::get("/",[HomeController::class,"index"]);
 Route::get("/redirect",[HomeController::class,"redirect"])->middleware('auth');
 Route::get('/products',[HomeController::class, "products"]);
+Route::post("/addcart/{id}",[HomeController::class,"addCart"]);
+Route::get("/cart/{id}",[HomeController::class,"showCart"]);

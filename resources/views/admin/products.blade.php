@@ -38,7 +38,7 @@
               <th> <button type="submit">Delete</button> </th>
             </form>
 
-            <th> <a href="{{ url('products/' . $product->id . '/edit') }}">Edit</a> </th>
+            <th> <a href="{{ url('products/' . $product->id ) }}">Edit</a> </th>
           </tbody>
           @endforeach
         </table>

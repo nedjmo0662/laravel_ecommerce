@@ -24,7 +24,7 @@ class AdminController extends Controller
 
     public function uploadProduct(Request $req){
         $validate = $req->validate([
-            'title' => "required|string|max:200",
+            'title' => "required|string|max:20",
             "description" => "required|string",
             "image" =>"required|mimes:png,jpg",
             "price" => "required|numeric",
@@ -79,7 +79,7 @@ class AdminController extends Controller
         $product = Product::find($id);
         if($validate){
             if($req->hasFile('image')){
-                //deletin image from the server in it exists
+                //delet the image from the server if exists
                 if($product->image){ 
                     unlink("productImages/" . $product->image);
                 } 

@@ -26,7 +26,6 @@
 
                     {{session()->get('message')}}
 
-
                   </div>
                 @endif
                 <form action=" {{ route('products.upload') }} " method="POST" enctype="multipart/form-data">
@@ -36,6 +35,8 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control text-black" value="{{ old('title') }}" name="title" placeholder="Enter a Product Title">
                         </div>
+                      
+                        
                         @error("title")    
                         <span class="text-danger text-center">
                             {{ $message }}

@@ -25,6 +25,10 @@
 
           <form action="{{url('products/' . $product->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div style="justify-content:center;overflow:hidden" class="form-group row">
+                    <img style="border-radius:0;max-width:500px;max-height:400px" src="{{ '/productImages/' . $product->image}}" alt="">
+                </div>
+
                 <div class="form-group row">
                     <label for="inputPassword" class="col-sm-2 col-form-label">Product Title</label>
                     <div class="col-sm-10">
@@ -64,16 +68,16 @@
 
 
                     <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Quantity</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="quantity" value="{{ $product->quantity }}" class="form-control text-black" placeholder="Enter product Quantity">
-                    </div>
-                    @error("quantity")    
-                    <span class="text-danger text-center">
-                        {{ $message }}
-                    </span>
-                    @enderror
-                </div>
+                        <label class="col-sm-2 col-form-label">Quantity</label>
+                        <div class="col-sm-10">
+                            <input type="number" name="quantity" value="{{ $product->quantity }}" class="form-control text-black" placeholder="Enter product Quantity">
+                        </div>
+                        @error("quantity")    
+                        <span class="text-danger text-center">
+                            {{ $message }}
+                        </span>
+                        @enderror
+                     </div>
 
                     <div class="form-group row">
                     <label for="file" class="mt-5 col-sm-2 col-form-label bg-info rounded cursor-pointer me-auto w-15 text-center">Choose Image</label>

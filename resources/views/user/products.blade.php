@@ -1,6 +1,6 @@
-<x-app-layout>
+<!-- <x-app-layout> -->
     <!-- <h1 class="text-red-300">home</h1> -->
-</x-app-layout>
+<!-- </x-app-layout> -->
 
 
  <!DOCTYPE html>
@@ -34,60 +34,10 @@ https://templatemo.com/tm-546-sixteen-clothing
   </head>
 <body >    
         <!-- partial -->
-        <form method="get">
-            <div class="form-group row">
-                <div class="col-sm-10 mx-2">
-                    <input class="form-controll text-back rounded" type="text" placeholder="Search" name="search" id="">
-                </div>
-            </div>
-        </form>
 
-        <div class="latest-products">
-      <div class="container position-relative">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-heading">
-              <h2>Latest Products</h2>
-              <a href="/">Back<i class="fa fa-angle-right"></i></a>
-            </div>
-          </div>
+        @include('user.product')
 
-          @if($products)
-          
-          @foreach ( $products as $product )
-            @if(isset($_GET['search'])  && str_contains($product->title, $_GET['search']))
-                <div class="col-md-4">
-                    <div class="product-item" style="width:300px;">
-                    <a href="#"><img style="height:150px;width:100%" src="{{'/productImages/' . $product->image}}" alt=""></a>
-                    <div class="down-content">
-                        <a href="#"><h4>{{ $product->title }}</h4></a>
-                        <h6>${{ $product->price }}</h6>
-                        <p>{{ $product->description }}</p>
-                    </div>
-                    </div>
-                </div>
-            @elseif(!isset($_GET['search']) || $_GET['search'] == "")
-            
-            <div class="col-md-4">
-                    <div class="product-item" style="width:300px;">
-                    <a href="#"><img style="height:150px;width:100%" src="{{'/productImages/' . $product->image}}" alt=""></a>
-                    <div class="down-content">
-                        <a href="#"><h4>{{ $product->title }}</h4></a>
-                        <h6>${{ $product->price }}</h6>
-                        <p>{{ $product->description }}</p>
-                    </div>
-                    </div>
-                </div>
-            @endif
-          @endforeach
 
-          <div style="bottom:-30px;left:50%;transform:translateX(-50%)" class="position-absolute justify-content-center ">
-            {!! $products->links() !!}
-          </div>
-          @endif
-        </div>
-      </div>
-    </div>
           <!-- partial -->
 
     @include('admin.script')
