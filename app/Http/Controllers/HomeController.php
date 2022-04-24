@@ -73,8 +73,9 @@ class HomeController extends Controller
     public function showCart(Request $req, $id){
         $user = User::find($id);
         $products = $user->products->all();
-        return $products;
+        return ($products);
         return view('user.cart',compact('products'));
+
         // $user_products = $user->products;
         // return $user_products;
     }
