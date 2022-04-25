@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 <!--
 
 TemplateMo 546 Sixteen Clothing
@@ -64,6 +65,14 @@ https://templatemo.com/tm-546-sixteen-clothing
               <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contact Us</a>
               </li>
+              @auth
+                <li class="nav-item">
+                  <a class="nav-link" href="cart/{{ Auth::id() }}">
+                    <i class="fas fa-shopping-cart"></i>
+                    Cart [{{ $count }}]
+                  </a>
+                </li>
+              @endauth
 
               @if (Route::has('login'))
                 <!-- <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block"> -->

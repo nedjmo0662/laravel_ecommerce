@@ -33,4 +33,5 @@ Route::get("/",[HomeController::class,"index"]);
 Route::get("/redirect",[HomeController::class,"redirect"])->middleware('auth');
 Route::get('/products',[HomeController::class, "products"]);
 Route::post("/addcart/{id}",[HomeController::class,"addCart"]);
+Route::post("/removecart/{id}",[HomeController::class,"removeCart"]);
 Route::get("/cart/{id}",[HomeController::class,"showCart"]);

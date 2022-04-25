@@ -1,8 +1,6 @@
 <!-- <x-app-layout> -->
     <!-- <h1 class="text-red-300">home</h1> -->
 <!-- </x-app-layout> -->
-
-{{ 'nedjmo' }}
  <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +22,8 @@ TemplateMo 546 Sixteen Clothing
 
 https://templatemo.com/tm-546-sixteen-clothing
 
--->
 
+-->
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
@@ -44,7 +42,7 @@ https://templatemo.com/tm-546-sixteen-clothing
             <div class="row">
               <div class="col-md-12">
                 <div class="section-heading">
-                  <h2>Latest Products</h2>
+                  <h2>Products In The Cart</h2>
                   <a href="products">view all products <i class="fa fa-angle-right"></i></a>
     
     
@@ -61,9 +59,7 @@ https://templatemo.com/tm-546-sixteen-clothing
     
               @if($products)
               @foreach ( $products as $product )
-           
                 @if(!isset($_GET['search']) || $_GET['search'] == "" || isset($_GET['search'])  && str_contains($product->title, $_GET['search']))
-                
                 <div class="col-md-4">
                         <div class="product-item" style="width:300px;">
                         <a href="#"><img style="height:150px;width:100%" src="{{'/productImages/' . $product->image}}" alt=""></a>
@@ -78,7 +74,7 @@ https://templatemo.com/tm-546-sixteen-clothing
                             <form action="{{url('removecart',$product->id)}}" method="POST">
                               @csrf
                               <input class="form-control float-right w-25 d-inline-block mb-2" type="number" name="quantity" value="1" min="1" id="">
-                              <input class="btn bg-primary" type="submit" value="Add Cart"/>
+                              <input class="btn bg-primary" type="submit" value="Remove From Cart"/>
                             </form>
                           </div>
                           <span class="text-success text-center d-block w-75 mx-auto">
@@ -95,6 +91,15 @@ https://templatemo.com/tm-546-sixteen-clothing
               {{-- <div style="bottom:-30px;left:50%;transform:translateX(-50%)" class="position-absolute justify-content-center ">
                 {!! $products->links() !!}
               </div> --}}
+
+              @else
+                
+                  <div class="w-75 mx-auto d-flex justify-content-center">
+                    <span style="color: gray;font-weight: bold;font-size: 32px;">
+                      The Cart is Empty
+                    </span>
+                  </div>
+                
               @endif
     
     

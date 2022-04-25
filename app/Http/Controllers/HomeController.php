@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -39,7 +40,8 @@ class HomeController extends Controller
             return view('admin.home',compact('products'));
         }else {
             $products = Product::paginate(3);
-            return view("user.home",compact("products"));
+            $count = Cart::where('user_id',Auth::id())->count();
+            return view("user.home",compact("products","count"));
         }
     } 
 
@@ -70,13 +72,20 @@ class HomeController extends Controller
         }
     }
     
+    public function removeCart(Request $req, $id){
+        cart::where('product_id',$id)->delete();
+        return redirect()->back();
+    }
     public function showCart(Request $req, $id){
         $user = User::find($id);
-        $products = $user->products->all();
-        return ($products);
-        return view('user.cart',compact('products'));
-
-        // $user_products = $user->products;
-        // return $user_products;
+        if($user->id == Auth::id()){
+            $products = $user->products->all();
+                return view('user.cart',compact('products'));
+        }else {
+            if(Auth::id()){
+                return redirect('404.php');
+            }else {
+                return redirect('login');
+            }
     }
 }
