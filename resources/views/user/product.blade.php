@@ -1,5 +1,5 @@
 
-<div class="container-fluid latest-products">
+<div class="container-fluid ">
 
 
       <div class="container position-relative">
@@ -10,19 +10,21 @@
               <a href="products">view all products <i class="fa fa-angle-right"></i></a>
 
 
-              <form method="get" >
-                <div class="form-group row justify-content-end">
-                    <div class="col-sm-3 ml-4">
-                        <input class="form-control text-back rounded" value="" type="text" placeholder="Search" name="search" id="">
-                    </div>
-                    <button class="btn btn-success border-0 " type="submit">Search</button>
-                </div>
-            </form>
             </div>
+            <form method="get" >
+              <div class="form-group row justify-content-end">
+                  <div class="col-sm-3 ml-4">
+                      <input class="form-control text-back rounded" value="" type="text" placeholder="Search" name="search" id="">
+                  </div>
+                  <button class="btn btn-success border-0 bg-dark" type="submit">Search</button>
+              </div>
+          </form>
+        </div>
           </div>
 
+          <div class="products-wrapper
+          row py-5">
           @if($products)
-          
           @foreach ( $products as $product )
             @if(isset($_GET['search'])  && str_contains($product->title, $_GET['search']))
                 <div class="col-md-4">
@@ -65,12 +67,13 @@
                 </div>
             @endif
           @endforeach
+          
 
           <div style="bottom:-30px;left:50%;transform:translateX(-50%)" class="position-absolute justify-content-center ">
             {!! $products->links() !!}
           </div>
           @endif
-
+          </div>
 
       
         </div>

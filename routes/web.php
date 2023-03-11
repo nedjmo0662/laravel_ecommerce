@@ -35,3 +35,5 @@ Route::get('/products',[HomeController::class, "products"]);
 Route::post("/addcart/{id}",[HomeController::class,"addCart"]);
 Route::post("/removecart/{id}",[HomeController::class,"removeCart"]);
 Route::get("/cart/{id}",[HomeController::class,"showCart"]);
+Route::post("/order",[HomeController::class,"confirmOrder"]);
+

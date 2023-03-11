@@ -1,6 +1,3 @@
-<!-- <x-app-layout> -->
-    <!-- <h1 class="text-red-300">home</h1> -->
-<!-- </x-app-layout> -->
  <!DOCTYPE html>
 <html lang="en">
 
@@ -18,24 +15,74 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!--
 
-TemplateMo 546 Sixteen Clothing
-
-https://templatemo.com/tm-546-sixteen-clothing
-
-
--->
     <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
     <link rel="stylesheet" href="assets/css/owl.css">
 
   </head>
 <body >    
+<!-- Header -->
+<header >
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><h2>Sixteen <em>Clothing</em></h2></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="products">Our Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact Us</a>
+          </li>
+          @auth
+            <li class="nav-item">
+              <a class="nav-link" href="cart/{{ Auth::id() }}">
+                <i class="fas fa-shopping-cart"></i>
+                Cart [{{ $count }}]
+              </a>
+            </li>
+          @endauth
+
+          @if (Route::has('login'))
+            <!-- <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block"> -->
+                @auth
+                               <x-app-layout>
+                               </x-app-layout>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">Log in</a>
+                    </li>
+
+                    @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a href="{{ route('register') }}" class="nav-link">Register</a>
+                        </li>
+                    @endif
+
+                @endauth
+            </div>
+        @endif
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
         <!-- partial -->
-
-        
-
-        <div class="container-fluid latest-products">
+      
+        <div class="container-fluid ">
 
 
           <div class="container position-relative">
@@ -46,17 +93,11 @@ https://templatemo.com/tm-546-sixteen-clothing
                   <a href="products">view all products <i class="fa fa-angle-right"></i></a>
     
     
-                  <form method="get" >
-                    <div class="form-group row justify-content-end">
-                        <div class="col-sm-3 ml-4">
-                            <input class="form-control text-back rounded" value="" type="text" placeholder="Search" name="search" id="">
-                        </div>
-                        <button class="btn btn-success border-0 " type="submit">Search</button>
-                    </div>
-                </form>
+                
                 </div>
               </div>
     
+              
               @if($products)
               @foreach ( $products as $product )
                 @if(!isset($_GET['search']) || $_GET['search'] == "" || isset($_GET['search'])  && str_contains($product->title, $_GET['search']))
@@ -92,21 +133,26 @@ https://templatemo.com/tm-546-sixteen-clothing
                 {!! $products->links() !!}
               </div> --}}
 
-              @else
-                
-                  <div class="w-75 mx-auto d-flex justify-content-center">
+               @else
+                  <div class="w-75 mx-auto d-flex justify-content-center ">
                     <span style="color: gray;font-weight: bold;font-size: 32px;">
                       The Cart is Empty
                     </span>
                   </div>
                 
-              @endif
-    
-    
-          
-            </div>
-          </div>
-        </div>
+                  @endif
+                </div>
+                @if ($products)
+                <div class="d-flex justify-content-center">
+                    <form action="{{url('/order')}}" method="post">
+                    @csrf
+                      <button type="submit" class="btn bg-success ">Confirm Order</button>
+                    </form>
+                </div>
+                @endif
+              </div>
+              
+             
           <!-- partial -->
 
     @include('admin.script')

@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,8 @@ class HomeController extends Controller
     public function products()
     {
         $products = Product::paginate(6);
-        return view('user.products',compact('products'));
+        $count = Cart::where('user_id',Auth::id())->count();
+        return view('user.products',compact('products','count'));
     }
     public function index()
     {
@@ -27,6 +29,7 @@ class HomeController extends Controller
             return redirect('/redirect');
         }else {
             $products = Product::paginate(6);
+            $count = Cart::where('user_id',Auth::id())->count();
             return view("user.home",compact('products'));
         }
     }
@@ -80,7 +83,8 @@ class HomeController extends Controller
         $user = User::find($id);
         if($user->id == Auth::id()){
             $products = $user->products->all();
-                return view('user.cart',compact('products'));
+            $count = Cart::where('user_id',Auth::id())->count();
+                return view('user.cart',compact('products','count'));
         }else {
             if(Auth::id()){
                 return redirect('404.php');
@@ -88,4 +92,25 @@ class HomeController extends Controller
                 return redirect('login');
             }
     }
+}
+    public function confirmOrder(Request $req){
+        
+        if(Auth::id()){
+            $products = Cart::where('user_id',Auth::id())->get();
+            foreach($products as $product){
+                Order::create(
+                    [
+                        'user_id' => Auth::id(),
+                        'product_id' => $product->id,
+                        'quantity' =>$product->quantity,
+                        'name' => Auth::user()->name,
+                        'phone' => Auth::user()->phone,
+                        'adress' => Auth::user()->adress
+                    ]
+                    );
+            }
+            Cart::where('user_id',Auth::id())->delete();
+            return redirect()->back()->with('message', 'products ordered successfuly');
+        }
+    } 
 }
